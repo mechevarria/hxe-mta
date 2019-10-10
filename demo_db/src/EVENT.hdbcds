@@ -1,0 +1,18 @@
+entity EVENT {
+    key EVENT_ID     : hana.VARCHAR(40);
+        EVENT_DATE   : LocalDate        not null;
+        EVENT_TYPE   : hana.VARCHAR(50) not null;
+        ACTOR_1      : String(200)      not null;
+        ACTOR_2      : String(200);
+        COUNTRY_NAME : String(100);
+        LATITUDE     : String(100);
+        LONGITUDE    : String(100);
+        NOTES        : LargeString;
+        FATALITIES   : Integer;
+}
+technical configuration {
+    fulltext index fti_notes on (NOTES)
+        fast preprocess off
+        language detection('en')
+        fuzzy search index on;
+};

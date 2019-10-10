@@ -1,0 +1,28 @@
+{
+	"format_version": 1,
+	"imports": [{
+		"target_table": "EVENT",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "event.csv",
+			"has_header": true,
+			"dialect": "HANA",
+			"delete_existing_foreign_data": true,
+			"type_config": {
+				"delimiter": ","
+			}
+		},
+		"column_mappings": {
+			"EVENT_ID": "event_id_cnty",
+			"EVENT_DATE": "event_date",
+			"EVENT_TYPE": "event_type",
+			"ACTOR_1": "actor1",
+			"ACTOR_2": "actor2",
+			"COUNTRY_NAME": "country",
+			"LATITUDE": "latitude",
+			"LONGITUDE": "longitude",
+			"NOTES": "notes",
+			"FATALITIES": "fatalities"
+		}
+	}]
+}
