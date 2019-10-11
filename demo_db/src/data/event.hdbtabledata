@@ -19,8 +19,6 @@
 			"ACTOR_1": "actor1",
 			"ACTOR_2": "actor2",
 			"COUNTRY_NAME": "country",
-			"LATITUDE": "latitude",
-			"LONGITUDE": "longitude",
 			"GEO_LOCATION": "geolocation",
 			"NOTES": "notes",
 			"FATALITIES": "fatalities"

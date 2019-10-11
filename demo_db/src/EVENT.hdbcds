@@ -5,8 +5,6 @@ entity EVENT {
         ACTOR_1      : String(200)      not null;
         ACTOR_2      : String(200);
         COUNTRY_NAME : String(100);
-        LATITUDE     : String(100);
-        LONGITUDE    : String(100);
         GEO_LOCATION : hana.ST_POINT(1000004326);
         NOTES        : LargeString;
         FATALITIES   : Integer;
