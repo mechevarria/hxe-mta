@@ -8,18 +8,19 @@ const searchQuery = `
        actor_2,
        country_name,
        fatalities,
-       geo_location.ST_ASWKT(),
+       geo_location.ST_AsGeoJSON(),
        highlighted(notes)
 	FROM event
 	WHERE contains(notes, ?, Fuzzy(0.8))
-	LIMIT 500
+	LIMIT ?
 `;
 const search = $.request.parameters.get('search') || '';
+const limit = $.request.parameters.get('limit') || 10;
 const conn = $.hdb.getConnection();
 
 $.response.contentType = 'application/json';
 try {
-	const results = conn.executeQuery(searchQuery, search);
+	const results = conn.executeQuery(searchQuery, search, limit);
 
 	$.response.setBody(JSON.stringify({
 		'results': results,
