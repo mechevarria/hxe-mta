@@ -1,19 +1,26 @@
 ID: hxe_mta
 _schema-version: '2.1'
 version: 0.0.1
-
 modules:
- - name: demo_db
-   type: hdb
-   path: demo_db
-   requires:
-    - name: hdi_demo_db
-
+  - name: demo_db
+    type: hdb
+    path: demo_db
+    requires:
+      - name: hdi_demo_db
+  - name: demo_api
+    type: nodejs
+    path: demo_api
+    provides:
+      - name: demo_api_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: hdi_demo_db
 resources:
- - name: hdi_demo_db
-   parameters:
+  - name: hdi_demo_db
+    parameters:
       config:
-         schema: demo_DB
-   properties:
-      hdi-container-name: ${service-name}
-   type: com.sap.xs.hdi-container
+        schema: demo_DB
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
