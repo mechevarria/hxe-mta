@@ -39,5 +39,4 @@ try {
 	}));
 	$.response.status = $.net.http.INTERNAL_SERVER_ERROR;
 }
-
 conn.close();

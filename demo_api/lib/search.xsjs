@@ -12,9 +12,9 @@ const searchQuery = `
        highlighted(notes)
 	FROM event
 	WHERE contains(notes, ?, Fuzzy(0.8))
+	LIMIT 500
 `;
 const search = $.request.parameters.get('search') || '';
-
 const conn = $.hdb.getConnection();
 
 $.response.contentType = 'application/json';
@@ -32,5 +32,4 @@ try {
 	}));
 	$.response.status = $.net.http.INTERNAL_SERVER_ERROR;
 }
-
 conn.close();
