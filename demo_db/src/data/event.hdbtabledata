@@ -21,6 +21,7 @@
 			"COUNTRY_NAME": "country",
 			"LATITUDE": "latitude",
 			"LONGITUDE": "longitude",
+			"GEO_LOCATION": "geolocation",
 			"NOTES": "notes",
 			"FATALITIES": "fatalities"
 		}
