@@ -8,8 +8,8 @@ const searchQuery = `
        actor_2,
        country_name,
        fatalities,
-       geo_location.ST_AsGeoJSON(),
-       highlighted(notes)
+       geo_location.ST_AsGeoJSON() as GEO_LOCATION,
+       highlighted(notes) as NOTES
 	FROM event
 	WHERE contains(notes, ?, Fuzzy(0.8))
 	LIMIT ?
