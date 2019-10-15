@@ -10,7 +10,7 @@ const eventQuery = `
        fatalities,
        geo_location.ST_AsGeoJSON(),
        notes
-	FROM event
+	FROM EVENT
 	LIMIT ?
 	OFFSET ?
 `;
@@ -18,8 +18,9 @@ const limit = $.request.parameters.get('limit') || 10;
 const offset = $.request.parameters.get('offset') || 0;
 
 const countQuery = `
-	SELECT count(event_id) AS COUNT
-	FROM event
+	SELECT record_count
+	FROM   m_tables
+	WHERE  table_name = 'EVENT';  
 `;
 const conn = $.hdb.getConnection();
 
@@ -30,7 +31,7 @@ try {
 
 	$.response.setBody(JSON.stringify({
 		'results': results,
-		'count': count[0].COUNT
+		'count': count[0].RECORD_COUNT
 	}));
 	$.response.status = $.net.http.OK;
 } catch (e) {
