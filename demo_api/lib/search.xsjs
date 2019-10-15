@@ -11,16 +11,18 @@ const searchQuery = `
        geo_location.ST_AsGeoJSON() as GEO_LOCATION,
        highlighted(notes) as NOTES
 	FROM event
-	WHERE contains(notes, ?, Fuzzy(0.8))
+	WHERE contains(notes, ?, Fuzzy(?))
 	LIMIT ?
 `;
 const search = $.request.parameters.get('search') || '';
+const fuzzy = $.request.parameters.get('fuzzy') || 0.8;
 const limit = $.request.parameters.get('limit') || 10;
+
 const conn = $.hdb.getConnection();
 
 $.response.contentType = 'application/json';
 try {
-	const results = conn.executeQuery(searchQuery, search, limit);
+	const results = conn.executeQuery(searchQuery, search, fuzzy, limit);
 
 	$.response.setBody(JSON.stringify({
 		'results': results,
