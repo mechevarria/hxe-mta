@@ -8,7 +8,7 @@ const eventQuery = `
        actor_2,
        country_name,
        fatalities,
-       geo_location.ST_AsGeoJSON(),
+       geo_location.ST_AsGeoJSON() as GEO_LOCATION,
        notes
 	FROM EVENT
 	LIMIT ?
