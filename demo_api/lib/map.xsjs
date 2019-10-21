@@ -1,32 +1,32 @@
 /*eslint quotes: ["error", "single"]*/
+/*eslint prefer-const: "error"*/
 /*eslint-env es6 */
 const mapQuery = `
-	SELECT EVENT_ID, GEO_LOCATION.ST_AsGeoJSON() as GEO_LOCATION, NOTES
+	SELECT EVENT_ID as "eventId", 
+		GEO_LOCATION.ST_AsGeoJSON() as "geoLocation", 
+		NOTES as "notes"
 	FROM EVENT
 	WHERE GEO_LOCATION.ST_WITHIN(ST_GeomFromGeoJSON(?,1000004326)) = 1;
 `;
 
-let polygon = JSON.parse($.request.body.asString());
+const polygon = JSON.parse($.request.body.asString());
 const conn = $.hdb.getConnection();
 
 $.response.contentType = 'application/json';
+
+const featureCollection = {
+	type: 'FeatureCollection',
+	features: []
+};
 try {
-	const results = conn.executeQuery(mapQuery, JSON.stringify(polygon));
-	
-	// build feature collection
-	let featureCollection = {
-		type: 'FeatureCollection',
-		features: []
-	};
-	
-	results.forEach(result => {
-		let feature = {
+	conn.executeQuery(mapQuery, JSON.stringify(polygon)).forEach(result => {
+		const feature = {
 			type: 'Feature',
-			properties : {
-				id : result.EVENT_ID,
-				notes: result.NOTES
+			properties: {
+				id: result.eventId,
+				notes: result.notes
 			},
-			geometry: JSON.parse(result.GEO_LOCATION)
+			geometry: JSON.parse(result.geoLocation)
 		};
 		featureCollection.features.push(feature);
 	});

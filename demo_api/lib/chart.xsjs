@@ -1,15 +1,14 @@
 /*eslint quotes: ["error", "single"]*/
+/*eslint prefer-const: "error"*/
 /*eslint-env es6 */
 const donutQuery = `
-	SELECT EVENT_TYPE,
-       COUNT(EVENT_TYPE) AS COUNT
+	SELECT EVENT_TYPE as "eventType", COUNT(EVENT_TYPE) AS "count"
 	FROM EVENT
 	GROUP BY EVENT_TYPE;
 `;
 
 const barQuery = `
-	SELECT COUNTRY_NAME,
-       COUNT(COUNTRY_NAME) AS COUNT
+	SELECT COUNTRY_NAME as "countryName", COUNT(COUNTRY_NAME) AS "count"
 	FROM EVENT
 	GROUP BY COUNTRY_NAME; 
 `;
@@ -17,12 +16,27 @@ const conn = $.hdb.getConnection();
 
 $.response.contentType = 'application/json';
 try {
-	const donut = conn.executeQuery(donutQuery);
-	const bar = conn.executeQuery(barQuery);
+	const donutLabels = [];
+	const donutData = [];
+	conn.executeQuery(donutQuery).forEach(result => {
+		donutLabels.push(result.eventType);
+		donutData.push(result.count);
+	});
+	
+	const barLabels = [];
+	const barData = [{
+		data: []
+	}];
+	conn.executeQuery(barQuery).forEach(result => {
+		barLabels.push(result.countryName);
+		barData[0].data.push(result.count);
+	});
 
 	$.response.setBody(JSON.stringify({
-		'donut': donut,
-		'bar': bar
+		'donutLabels': donutLabels,
+		'donutData': donutData,
+		'barLabels': barLabels,
+		'barData': barData
 	}));
 	$.response.status = $.net.http.OK;
 } catch (e) {

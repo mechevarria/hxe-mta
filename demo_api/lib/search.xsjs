@@ -1,17 +1,18 @@
 /*eslint quotes: ["error", "single"]*/
+/*eslint prefer-const: "error"*/
 /*eslint-env es6 */
 const searchQuery = `
-	SELECT event_id,
-       event_date,
-       event_type,
-       actor_1,
-       actor_2,
-       country_name,
-       fatalities,
-       geo_location.ST_AsGeoJSON() as GEO_LOCATION,
-       highlighted(notes) as NOTES
-	FROM event
-	WHERE contains(notes, ?, Fuzzy(?))
+	SELECT EVENT_ID as "eventId",
+       EVENT_DATE as "eventDate",
+       EVENT_TYPE as "eventType",
+       ACTOR_1 as "actor1",
+       ACTOR_2 as "actor2",
+       COUNTRY_NAME as "countryName",
+       FATALITIES as "fatalities",
+       GEO_LOCATION.ST_AsGeoJSON() as "geoLocation",
+       HIGHLIGHTED(NOTES) as "notes"
+	FROM EVENT
+	WHERE CONTAINS(notes, ?, Fuzzy(?))
 	LIMIT ?
 `;
 const search = $.request.parameters.get('search') || '';
@@ -23,6 +24,10 @@ const conn = $.hdb.getConnection();
 $.response.contentType = 'application/json';
 try {
 	const results = conn.executeQuery(searchQuery, search, fuzzy, limit);
+	
+	results.forEach(result => {
+		result.geoLocation = JSON.parse(result.geoLocation);
+	});
 
 	$.response.setBody(JSON.stringify({
 		'results': results,
