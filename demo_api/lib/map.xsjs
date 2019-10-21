@@ -2,11 +2,17 @@
 /*eslint prefer-const: "error"*/
 /*eslint-env es6 */
 const mapQuery = `
-	SELECT EVENT_ID as "eventId", 
+	SELECT EVENT_ID as "eventId",
+		EVENT_DATE as "eventDate",
+    	EVENT_TYPE as "eventType",
+    	ACTOR_1 as "actor1",
+    	ACTOR_2 as "actor2",
+    	COUNTRY_NAME as "countryName",
+    	FATALITIES as "fatalities",
 		GEO_LOCATION.ST_AsGeoJSON() as "geoLocation", 
 		NOTES as "notes"
 	FROM EVENT
-	WHERE GEO_LOCATION.ST_WITHIN(ST_GeomFromGeoJSON(?,1000004326)) = 1;
+	WHERE GEO_LOCATION.ST_WITHIN(ST_GeomFromGeoJSON(?,0)) = 1;
 `;
 
 const polygon = JSON.parse($.request.body.asString());
@@ -23,7 +29,13 @@ try {
 		const feature = {
 			type: 'Feature',
 			properties: {
-				id: result.eventId,
+				eventId: result.eventId,
+				eventType: result.eventType,
+				eventDate: result.eventDate,
+				actor1: result.actor1,
+				actor2: result.actor2,
+				countryName: result.countryName,
+				fatalities: result.fatalities,
 				notes: result.notes
 			},
 			geometry: JSON.parse(result.geoLocation)
