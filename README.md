@@ -3,17 +3,17 @@ A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target app
 
 This application was developed using [SAP HANA Express](https://developers.sap.com/topics/sap-hana.html)
 
-![screenshot1.png](screenshot1.png)
+![app.png](screenshots/app.png)
 
 A web application that can take advantage of these services is [github/mechevarria/hxe_angular](https://github.com/mechevarria/hxe_angular)
 
-![screenshot3.png](screenshot3.png)
+![client.png](screenshots/client.png)
 
-## Import
+## Import to WebIDE
 
 To run this project, use the git clone option in [SAP HANA webide](https://developers.sap.com/topics/sap-webide.html) to bring in the project
 
-![screenshot2.png](screenshot2.png)
+![git.png](screenshots/git.png)
 
 ### Build the database module
 
