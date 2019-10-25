@@ -7,11 +7,11 @@ modules:
     path: demo_db
     requires:
       - name: hdi_demo_db
-  - name: demo_api
+  - name: demo_xsjs
     type: nodejs
-    path: demo_api
+    path: demo_xsjs
     provides:
-      - name: demo_api_api
+      - name: demo_xsjs_api
         properties:
           url: '${default-url}'
     requires:
