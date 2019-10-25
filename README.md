@@ -29,6 +29,8 @@ After building, deploy the application
 
 > right-click on **demo_api** -> Run -> Run as Node.js Application
 
+Thats it! Your application will be running on the link shown in the console
+
 ## Develop locally
 
 The `demo_xsjs` node service can be developed locally by adding **one** file.
