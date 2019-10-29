@@ -16,6 +16,15 @@ modules:
           url: '${default-url}'
     requires:
       - name: hdi_demo_db
+  - name: demo_express
+    type: nodejs
+    path: demo_express
+    provides:
+      - name: demo_express_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: hdi_demo_db
 resources:
   - name: hdi_demo_db
     parameters:
