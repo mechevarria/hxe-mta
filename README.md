@@ -1,5 +1,5 @@
 # hxe-mta
-A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides a REST API to power data viewing, search, charts and spatial queries.  
+A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides two options for a REST API to power data viewing, search, charts and spatial queries.  
 
 This application was developed using [SAP HANA Express](https://developers.sap.com/topics/sap-hana.html)
 
@@ -23,19 +23,25 @@ This will create the **EVENT** table, full-text index for search and load data f
 
 ### Build and deploy the node service
 
-> right-click on **demo_api** -> build -> build
+There are two implementations of the REST API, one based on **xsjs** and the other on standard [Express](https://expressjs.com/). Both return the same exact same results and have the same urls. 
+
+* Use the Express implementation if you are already familiar with node. If gives you all the flexibility of the working just with Express but requires you to wire your own routes.
+
+* Even though **xsjs** uses Express as well, it is obfuscated. Use **xsjs** if you are not already familiar with node as the HANA webide does all the wiring code for you.
+
+> right-click on **demo_express** or **demo_xsjs** -> build -> build
 
 After building, deploy the application
 
-> right-click on **demo_api** -> Run -> Run as Node.js Application
+> right-click on **demo_express** or **demo_xsjs** -> Run -> Run as Node.js Application
 
 Thats it! Your application will be running on the link shown in the console
 
 ## Develop locally
 
-The `demo_xsjs` node service can be developed locally by adding **one** file.
+The `demo_express` or `demo_xsjs` node service can be developed locally by adding **one** file.
 
-Create `default-services.json` inside the `hxe_mta/demo_xsjs` folder. Add the following to the file
+Create `default-services.json` inside the `/tmp` folder (this path can be changed in `server.js`). Add the following to the file
 
 ```json
 {
@@ -87,7 +93,7 @@ Then to start the nodejs application, run
 npm run start
 ```
 
-### Highlighting in VSCode
+### Optional Highlighting in VSCode
 
 To get syntax highlighting for `xsjs` files, open the app Settings
 
