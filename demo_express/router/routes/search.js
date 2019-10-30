@@ -1,9 +1,10 @@
 'use strict';
+
 const express = require('express');
 const router = express.Router();
 
 router.get('/', function (req, res) {
-  const eventQuery = `
+  const searchQuery = `
 	SELECT EVENT_ID as "eventId",
        EVENT_DATE as "eventDate",
        EVENT_TYPE as "eventType",
@@ -12,38 +13,30 @@ router.get('/', function (req, res) {
        COUNTRY_NAME as "countryName",
        FATALITIES as "fatalities",
        GEO_LOCATION.ST_AsGeoJSON() as "geoLocation",
-       NOTES as "notes"
+       HIGHLIGHTED(NOTES) as "notes"
 	FROM EVENT
+	WHERE CONTAINS(notes, ?, Fuzzy(?))
 	LIMIT ?
-	OFFSET ?
   `;
+  const search = req.query.search || '';
+  const fuzzy = req.query.fuzzy || 0.8;
   const limit = req.query.limit || 10;
-  const offset = req.query.offset || 0;
-
-  const countQuery = `
-	SELECT RECORD_COUNT as "recordCount"
-	FROM   M_TABLES
-	WHERE  TABLE_NAME = 'EVENT';  
-  `;
 
   try {
-    const count = req.db.exec(countQuery);
-    const results = req.db.exec(eventQuery, [limit, offset]);
-
+    const results = req.db.exec(searchQuery, [search, fuzzy, limit]);
+	
     results.forEach(result => {
       result.geoLocation = JSON.parse(result.geoLocation);
     });
-
+  
     res.json({
       'results': results,
-      'count': count[0].recordCount
+      'count': results.length
     });
-
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: `[event]: ${err.message}` });
+    res.status(500).json({ error: `[search]: ${err.message}` });
   }
-
 });
 
 module.exports = router;
