@@ -1,23 +1,17 @@
 'use strict';
 
 const express = require('express');
-
 const router = express.Router();
 
 router.get('/', function (req, res) {
 
-  const hana = req.hana;
-  // test connection
-  let client = hana.createConnection();
-  client.connect(hana.hanaOptions, (err) => {
+  req.db.exec('SELECT SESSION_USER FROM DUMMY', (err, results) => {
     if (err) {
-      console.error('Error in event', err);
       res.status(500).json(err);
+    } else {
+      res.json(results);
     }
-    console.log('Connection successful');
-    res.json({ events: 'none' });
-    client.disconnect();
-  });
+  })
 
 });
 
