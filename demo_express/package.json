@@ -5,17 +5,6 @@
   "author": "Mike Echevarria <mike.echevarria@gmail.com>",
   "repository": "https://github.com/mechevarria/hxe_mta.git",
   "license": "MIT",
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "node": true,
-      "es6": true
-    },
-    "rules": {
-      "no-console": 0,
-      "no-unused-vars": 1
-    }
-  },
   "scripts": {
     "start": "node server.js",
     "lint": "node_modules/.bin/eslint ."
