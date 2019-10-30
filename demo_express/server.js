@@ -13,7 +13,7 @@ app.use(bodyParser.json({ extended: true }));
 app.use(compression());
 
 // add hana client to all incoming requests
-const services = xsenv.getServices({ hana: { tag: 'hana' } });
+const services = xsenv.getServices({ hana: { tag: 'hana' } }, '/tmp/default-services.json');
 app.use('/', hdbext.middleware(services.hana));
 
 // pass configured express server to routes
