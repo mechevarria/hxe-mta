@@ -12,7 +12,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.json({ extended: true }));
 app.use(compression());
 
-// add hana client to all incoming requests
+// add hana client to all incoming requests. json file is fallback for local development
 const services = xsenv.getServices({ hana: { tag: 'hana' } }, '/tmp/default-services.json');
 app.use('/', hdbext.middleware(services.hana));
 
