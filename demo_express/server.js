@@ -1,12 +1,26 @@
-/*eslint no-console: 0*/
-"use strict";
+const http = require('http');
+const compression = require('compression');
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const middleware = require('./middleware');
 
-var http = require("http");
-var port = process.env.PORT || 3000;
+let app = express();
+app.server = http.createServer(app);
 
-http.createServer(function (req, res) {
-  res.writeHead(200, {"Content-Type": "text/plain"});
-  res.end("Hello World\n");
-}).listen(port);
 
-console.log("Server listening on port %d", port);
+app.use(morgan('combined'));
+
+app.use(bodyParser.json({ extended: true }));
+
+app.use(compression());
+
+// add hana object to req
+app.use(middleware);
+
+// pass configured express server to routes
+require('./router')(app);
+
+app.server.listen(process.env.PORT || 3000, () => {
+  console.log(`Started on port ${app.server.address().port}`);
+});
