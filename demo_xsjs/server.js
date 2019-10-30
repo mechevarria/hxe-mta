@@ -13,7 +13,7 @@ var options = {
 
 // configure HANA
 try {
-	options = Object.assign(options, xsenv.getServices({ hana: {tag: "hana"} }));
+	options = Object.assign(options, xsenv.getServices({ hana: {tag: "hana"} }, '/tmp/default-services.json'));
 } catch (err) {
 	console.log("[WARN]", err.message);
 }
