@@ -42,7 +42,9 @@ router.post('/', function (req, res) {
       featureCollection.features.push(feature);
     });
 
-    res.json(featureCollection);
+    res.json({
+      'featureCollection': featureCollection
+    });
 
   } catch (err) {
     console.error(err);
