@@ -10,13 +10,13 @@ const hdbext = require('@sap/hdbext');
 
 let app = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 app.use(morgan('combined'));
 app.use(bodyParser.json({ extended: true }));
 app.use(compression());
 
-// add hana client to all incoming requests
-const services = xsenv.getServices({ hana: { tag: 'hana' } });
+// add HANA client to all incoming requests. json file is only read when not running on XS Advanced Server
+const services = xsenv.getServices({ hana: { tag: 'hana' } }, '/tmp/default-services.json');
 app.use('/', hdbext.middleware(services.hana));
 
 // pass configured express server to routes
@@ -28,8 +28,8 @@ if (process.env.VCAP_APPLICATION) {
 
   http.createServer(app)
     .listen(app.get('port'), () => {
-    console.info(`http server started on port ${app.get('port')}`);
-  });
+      console.info(`http server started on port ${app.get('port')}`);
+    });
 } else {
   console.info('NOT Running on XS Advanced Server, using local https');
 
@@ -39,7 +39,7 @@ if (process.env.VCAP_APPLICATION) {
   }
 
   https.createServer(certConfig, app)
-    .listen(app.get('port'), () => {
-    console.log(`https server started on port ${app.get('port')}`);
-  });
+    .listen(8443, () => {
+      console.log('https server started on port 8443');
+    });
 }

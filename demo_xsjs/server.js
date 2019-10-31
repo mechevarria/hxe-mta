@@ -3,7 +3,7 @@
 
 var xsjs  = require("@sap/xsjs");
 var xsenv = require("@sap/xsenv");
-var port  = process.env.PORT || 3000;
+var port  = process.env.PORT || 8080;
 
 var options = {
 	anonymous : true, // remove to authenticate calls
@@ -11,7 +11,7 @@ var options = {
 	redirectUrl : "/index.xsjs"
 };
 
-// configure HANA
+// add HANA client to all incoming requests. json file is only read when not running on XS Advanced Server
 try {
 	options = Object.assign(options, xsenv.getServices({ hana: {tag: "hana"} }, '/tmp/default-services.json'));
 } catch (err) {
