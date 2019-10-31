@@ -37,9 +37,11 @@ After building, deploy the application
 
 Thats it! Your application will be running on the link shown in the console
 
-## Develop locally
+## Develop locally or Run in Docker
 
-The `demo_express` or `demo_xsjs` node service can be developed locally by adding **one** file.
+The `demo_express` or `demo_xsjs` node service can be developed locally or run in docker by adding **one** file.
+
+The `demo_express` folder has a `Dockerfile` to run as a docker container
 
 Create `default-services.json` inside the `/tmp` folder (this path can be changed in `server.js`). Add the following to the file
 
@@ -83,6 +85,8 @@ Get the connection properties logging into the [HANA Express Cockpit](https://de
 }
 ```
 
+### Run Local
+
 To install, run the following
 ```bash
 npm install
@@ -91,6 +95,20 @@ npm install
 Then to start the nodejs application, run
 ```bash
 npm run start
+```
+
+### Run in docker
+
+Running in docker still requires the creation of `default-services.json` that is mounted at runtime. Use this script to build the container
+
+```bash
+./docker-build.sh
+```
+
+Then run with
+
+```bash
+./docker-run.sh
 ```
 
 ### Optional Highlighting in VSCode
