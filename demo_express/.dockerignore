@@ -1,0 +1,8 @@
+.che
+node_modules
+screenshots
+.gitignore
+.eslintrc
+.dockerignore
+Dockerfile
+*.sh
