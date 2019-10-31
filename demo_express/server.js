@@ -1,4 +1,6 @@
+const fs = require('fs');
 const http = require('http');
+const https = require('https');
 const compression = require('compression');
 const express = require('express');
 const morgan = require('morgan');
@@ -7,7 +9,8 @@ const xsenv = require('@sap/xsenv');
 const hdbext = require('@sap/hdbext');
 
 let app = express();
-app.server = http.createServer(app);
+
+app.set('port', process.env.PORT || 3000);
 app.use(morgan('combined'));
 app.use(bodyParser.json({ extended: true }));
 app.use(compression());
@@ -20,10 +23,23 @@ app.use('/', hdbext.middleware(services.hana));
 require('./router')(app);
 
 // check to see if running on HANA
-if(process.env.VCAP_APPLICATION) {
-  console.log('Running on XS Advanced Server');
-}
+if (process.env.VCAP_APPLICATION) {
+  console.log('Running on XS Advanced Server, router provides https');
 
-app.server.listen(process.env.PORT || 3000, () => {
-  console.log(`Server started on port ${app.server.address().port}`);
-});
+  http.createServer(app)
+    .listen(app.get('port'), () => {
+    console.info(`http server started on port ${app.get('port')}`);
+  });
+} else {
+  console.info('NOT Running on XS Advanced Server, using local https');
+
+  const certConfig = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  }
+
+  https.createServer(certConfig, app)
+    .listen(app.get('port'), () => {
+    console.log(`https server started on port ${app.get('port')}`);
+  });
+}
