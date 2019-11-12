@@ -10,8 +10,12 @@ entity EVENT {
         FATALITIES   : Integer;
 }
 technical configuration {
+    // Search 'Full-Text Index Parameters' on help.sap.com
     fulltext index fti_notes on (NOTES)
         fast preprocess off
+        async
         language detection('en')
-        fuzzy search index on;
+        fuzzy search index on
+        configuration 'PUBLIC_SECTOR_EVENT'
+        text analysis on;
 };
