@@ -9,9 +9,9 @@ router.get('/', function (req, res) {
 	FROM "$TA_EVENT.fti_notes";
   `;
   try {
-  	const results = [];
+    const results = [];
     req.db.exec(typesQuery).forEach(result => {
-    	results.push(result.taType);
+      results.push(result.taType);
     });
     res.json(results);
   } catch (err) {
