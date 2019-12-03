@@ -1,5 +1,5 @@
 # hxe-mta
-A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides two options for a REST API to power data viewing, search, charts and spatial queries.  
+A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides a REST API to power data viewing, search, charts and spatial queries.  
 
 This application was developed using [SAP HANA Express](https://developers.sap.com/topics/sap-hana.html)
 
@@ -11,7 +11,7 @@ A web application that can take advantage of the REST is [github/mechevarria/hxe
 
 ## Import to WebIDE
 
-To run this project, use the git clone option in [SAP HANA webide](https://developers.sap.com/topics/sap-webide.html) to bring in the project
+To run this project, use the git clone option in [SAP HANA webide](https://developers.sap.com/topics/sap-webide.html) to bring in the project via the git url `https://github.com/mechevarria/hxe_mta.git`
 
 ![git.png](screenshots/git.png)
 
@@ -23,23 +23,22 @@ This will create the **EVENT** table, full-text index for search and load data f
 
 ### Build and deploy the node service
 
-There are two implementations of the REST API, one based on **xsjs** and the other on standard [Express](https://expressjs.com/). Both return the same exact same results and have the same urls. 
+The REST API is implemented as a standard [Express](https://expressjs.com/) application.
 
-* Use the Express implementation if you are already familiar with node. If gives you all the flexibility of the working just with Express but requires you to wire your own routes.
+* The Express implementation gives you all the flexibility of the working just with Express but requires you to wire your own routes for services like in any Express application.
 
-* Even though **xsjs** uses Express as well, it is obfuscated. Use **xsjs** if you are not already familiar with node as the HANA webide does all the wiring code for you.
 
-> right-click on **demo_express** or **demo_xsjs** -> build -> build
+> right-click on **demo_express** -> build -> build
 
 After building, deploy the application
 
-> right-click on **demo_express** or **demo_xsjs** -> Run -> Run as Node.js Application
+> right-click on **demo_express** -> Run -> Run as Node.js Application
 
 Thats it! Your application will be running on the link shown in the console
 
 ## Develop locally or Run in Docker
 
-The `demo_express` or `demo_xsjs` node service can be developed locally or run in docker by adding **one** file.
+The `demo_express` node service can be developed locally or run in docker by adding **one** file.
 
 The `demo_express` folder has a `Dockerfile` to run as a docker container
 
@@ -52,7 +51,7 @@ Create `default-services.json` inside the `/tmp` folder (this path can be change
 }
 ```
 
-> Do **not** check `default-services.json` into source control. This file will contain the HANA connection properties that are usually injected as an environment variable at runtime. `default-services.json` is already added to `.gitignore` in the `demo_xsjs` module.
+> Do **not** check `default-services.json` into source control. This file will contain the HANA connection properties that are usually injected as an environment variable at runtime. `default-services.json` is already added to `.gitignore` in the `demo_express` module.
 
 Get the connection properties logging into the [HANA Express Cockpit](https://developers.sap.com/tutorials/xsa-explore-basics.html) and copying the HANA service credentials
 
@@ -111,20 +110,6 @@ Then run with
 ./docker-run.sh
 ```
 
-### Optional Highlighting in VSCode
-
-To get syntax highlighting for `xsjs` files, open the app Settings
-
-> User > Settings > Text Editor > Files > Edit in `Settings.json`
-
-Then add the following
-
-```json
-"files.associations": {
-  "*.xsjs": "javascript"
-}
-```
-
 ## Further help
 
-To learn more about SAP HANA development capabilities, go to [developers.sap.com](https://developers.sap.com/)
+To learn more about SAP HANA development capabilities, go to [developers.sap.com](https://developers.sap.com/). You can filter the number of tutorials by [SAP Hana or SAP HANA Express Edition](https://developers.sap.com/tutorial-navigator.html?tag=products:technology-platform/sap-hana&tag=products:technology-platform/sap-hana/sap-hana-express-edition)
