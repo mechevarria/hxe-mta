@@ -1,12 +1,10 @@
 {
-	"name": "demo_web-approuter",
-	"engines": {
-		"node": ">=4.0.0 <9.0.0"
-	},
-	"dependencies": {
-		"@sap/approuter": "6.5.0"
-	},
-	"scripts": {
-		"start": "node node_modules/@sap/approuter/approuter.js"
-	}
+  "name": "demo_web",
+  "version": "0.0.1",
+  "dependencies": {
+    "@sap/approuter": "6.5.0"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  }
 }

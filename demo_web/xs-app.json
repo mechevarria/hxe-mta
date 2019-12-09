@@ -1,9 +1,16 @@
 {
-	"welcomeFile": "dist/index.html",
-	"authenticationMethod": "none",
-	"routes": [{
+  "welcomeFile": "/demo_web/webapp/index.html",
+  "authenticationMethod": "none",
+  "routes": [
+  	{
+      "source": "^/demo_web/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    },
+  	{
 		"source": "^/api/(.*)$",
 		"destination": "demo_express_backend",
 		"target": "$1"
-	}]
+	}
+  ]
 }
