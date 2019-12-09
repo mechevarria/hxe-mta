@@ -7,7 +7,6 @@ modules:
     path: demo_db
     requires:
       - name: hdi_demo_db
-  
   - name: demo_express
     type: nodejs
     path: demo_express
@@ -17,6 +16,15 @@ modules:
           url: '${default-url}'
     requires:
       - name: hdi_demo_db
+  - name: demo_web
+    type: html5
+    path: demo_web
+    requires:
+      - name: demo_express_api
+        properties:
+          name: demo_express_backend
+          url: '~{url}'
+        group: destinations
 resources:
   - name: hdi_demo_db
     parameters:

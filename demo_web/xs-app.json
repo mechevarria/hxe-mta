@@ -1,0 +1,9 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "none",
+	"routes": [{
+		"source": "^/api/(.*)$",
+		"destination": "demo_express_backend",
+		"target": "$1"
+	}]
+}
