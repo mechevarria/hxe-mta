@@ -1,15 +1,14 @@
 {
-	"welcomeFile": "/demo_web/webapp/index.html",
+	"welcomeFile": "demo_web/index.html",
 	"authenticationMethod": "none",
 	"routes": [{
-		"source": "^/demo_web/(.*)$",
+		"source": "/api/(.*)$",
 		"target": "$1",
-		"localDir": "webapp",
+		"destination": "demo_express_backend",
 		"csrfProtection": false
 	}, {
-		"source": "^/api/(.*)$",
-		"destination": "demo_express_backend",
+		"source": "^/(.*)$",
 		"target": "$1",
-		"csrfProtection": false
+		"localDir": "webapp"
 	}]
 }
