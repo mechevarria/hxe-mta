@@ -1,11 +1,9 @@
 # hxe-mta
-A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides a REST API to power data viewing, search, charts and spatial queries.  
+A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides a REST API to power data viewing, search, charts and spatial queries along with an [Angular](https://angular.io/) web application 
 
 This application was developed using [SAP HANA Express](https://developers.sap.com/topics/sap-hana.html)
 
 ![app.png](screenshots/app.png)
-
-A web application that can take advantage of the REST is [github/mechevarria/hxe_angular](https://github.com/mechevarria/hxe_angular)
 
 ![client.png](screenshots/client.png)
 
@@ -35,6 +33,15 @@ After building, deploy the application
 > right-click on **demo_express** -> Run -> Run as Node.js Application
 
 Thats it! Your application will be running on the link shown in the console
+
+### Build and deploy the Angular frontend
+
+> right-click on **demo_web** -> Run -> Run as Web Application
+
+![web.png](screenshots/web.png)
+
+The assets in the `webapp` directory are the distribution output from the build process in [github/mechevarria/hxe_angular](https://github.com/mechevarria/hxe_angular)
+
 
 ## Develop locally or Run in Docker
 
