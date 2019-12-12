@@ -9,15 +9,15 @@ This application was developed using [SAP HANA Express](https://developers.sap.c
 
 ## Import to WebIDE
 
-To run this project, use the git clone option in [SAP HANA webide](https://developers.sap.com/topics/sap-webide.html) to bring in the project via the git url `https://github.com/mechevarria/hxe_mta.git`
+To run this project, use the git clone option in [SAP HANA webide](https://developers.sap.com/topics/sap-webide.html) to bring in the project via the git url `https://github.com/mechevarria/cloud_mta.git`
 
 ![git.png](screenshots/git.png)
 
 ### Build the database module
 
-> right-click on **demo_db** -> build -> build
+> right-click on **hana** -> build -> build
 
-This will create the **EVENT** table, full-text index for search and load data from `demo_db/src/data/event.csv`
+This will create the **EVENT** table, full-text index for search and load data from `hana/src/data/event.csv`
 
 ### Build and deploy the node service
 
@@ -26,17 +26,23 @@ The REST API is implemented as a standard [Express](https://expressjs.com/) appl
 * The Express implementation gives you all the flexibility of the working just with Express but requires you to wire your own routes for services like in any Express application.
 
 
-> right-click on **demo_express** -> build -> build
+> right-click on **express** -> build -> build
 
 After building, deploy the application
 
-> right-click on **demo_express** -> Run -> Run as Node.js Application
+> right-click on **express** -> Run -> Run as Node.js Application
 
 Thats it! Your application will be running on the link shown in the console
 
 ### Build and deploy the Angular frontend
 
-> right-click on **demo_web** -> Run -> Run as Web Application
+Make sure the **Run as Web Application** is on **Cloud Foundry**, not Neo by checking the **Run Configurations** option
+
+> right-click on **angular** -> Run -> Run Configurations
+
+![web-run.png](screenshots/web-run.png)
+
+> right-click on **angular** -> Run -> Run as Web Application
 
 ![web.png](screenshots/web.png)
 
@@ -45,9 +51,9 @@ The assets in the `webapp` directory are the distribution output from the build 
 
 ## Develop locally or Run in Docker
 
-The `demo_express` node service can be developed locally or run in docker by adding **one** file.
+The `express` node service can be developed locally or run in docker by adding **one** file.
 
-The `demo_express` folder has a `Dockerfile` to run as a docker container
+The `express` folder has a `Dockerfile` to run as a docker container
 
 Create `default-services.json` inside the `/tmp` folder (this path can be changed in `server.js`). Add the following to the file
 
@@ -58,7 +64,7 @@ Create `default-services.json` inside the `/tmp` folder (this path can be change
 }
 ```
 
-> Do **not** check `default-services.json` into source control. This file will contain the HANA connection properties that are usually injected as an environment variable at runtime. `default-services.json` is already added to `.gitignore` in the `demo_express` module.
+> Do **not** check `default-services.json` into source control. This file will contain the HANA connection properties that are usually injected as an environment variable at runtime. `default-services.json` is already added to `.gitignore` in the `express` module.
 
 Get the connection properties logging into the [HANA Express Cockpit](https://developers.sap.com/tutorials/xsa-explore-basics.html) and copying the HANA service credentials
 
@@ -71,7 +77,7 @@ Get the connection properties logging into the [HANA Express Cockpit](https://de
 ```json
 {
   "hana": {
-    "schema": "DEMO_DB",
+    "schema": "hana",
     "hdi_password": "<YOUR_PASSWORD_VALUE>",
     "tenant_name": "HXE",
     "password": "<YOUR_PASSWORD_VALUE>",
@@ -84,9 +90,9 @@ Get the connection properties logging into the [HANA Express Cockpit](https://de
       }
     ],
     "host": "hxehost",
-    "hdi_user": "DEMO_DB_71OEEN6U5R5WKIHHNA7EJV95S_DT",
-    "user": "DEMO_DB_71OEEN6U5R5WKIHHNA7EJV95S_RT",
-    "url": "jdbc:sap://hxehost:39015/?currentschema=DEMO_DB"
+    "hdi_user": "hana_71OEEN6U5R5WKIHHNA7EJV95S_DT",
+    "user": "hana_71OEEN6U5R5WKIHHNA7EJV95S_RT",
+    "url": "jdbc:sap://hxehost:39015/?currentschema=hana"
   }
 }
 ```
