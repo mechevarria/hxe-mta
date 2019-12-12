@@ -1,10 +1,10 @@
 {
-	"welcomeFile": "demo_web/index.html",
+	"welcomeFile": "angular/index.html",
 	"authenticationMethod": "none",
 	"routes": [{
 		"source": "/api/(.*)$",
 		"target": "$1",
-		"destination": "demo_express_backend",
+		"destination": "express_backend",
 		"csrfProtection": false
 	}, {
 		"source": "^/(.*)$",

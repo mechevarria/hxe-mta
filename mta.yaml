@@ -1,35 +1,35 @@
-ID: hxe_mta
+ID: cloud_mta
 _schema-version: '2.1'
 version: 0.0.1
 modules:
-  - name: demo_db
+  - name: hana
     type: hdb
-    path: demo_db
+    path: hana
     requires:
-      - name: hdi_demo_db
-  - name: demo_express
+      - name: hdi_hana
+  - name: express
     type: nodejs
-    path: demo_express
+    path: express
     provides:
-      - name: demo_express_api
+      - name: express_api
         properties:
           url: '${default-url}'
     requires:
-      - name: hdi_demo_db
-  - name: demo_web
+      - name: hdi_hana
+  - name: angular
     type: html5
-    path: demo_web
+    path: angular
     requires:
-      - name: demo_express_api
+      - name: express_api
         group: destinations
         properties:
-          name: demo_express_backend
+          name: express_backend
           url: '~{url}'
 resources:
-  - name: hdi_demo_db
+  - name: hdi_hana
     parameters:
       config:
-        schema: demo_DB
+        schema: hana
     properties:
       hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
