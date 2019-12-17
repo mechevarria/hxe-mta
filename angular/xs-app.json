@@ -1,5 +1,5 @@
 {
-	"welcomeFile": "angular/index.html",
+	"welcomeFile": "/angular/index.html",
 	"authenticationMethod": "none",
 	"routes": [{
 		"source": "/api/(.*)$",
