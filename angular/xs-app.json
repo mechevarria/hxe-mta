@@ -2,12 +2,12 @@
 	"welcomeFile": "/angular/index.html",
 	"authenticationMethod": "none",
 	"routes": [{
-		"source": "/api/(.*)$",
+		"source": "^/api/(.*)$",
 		"target": "$1",
 		"destination": "express_backend",
 		"csrfProtection": false
 	}, {
-		"source": "^/(.*)$",
+		"source": "^/angular/(.*)$",
 		"target": "$1",
 		"localDir": "webapp"
 	}]
