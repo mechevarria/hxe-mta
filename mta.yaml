@@ -36,6 +36,7 @@ resources:
     parameters:
       config:
         schema: hana
+        database_id: c6420b67-872c-41e6-bba7-e8a8b9351dda
     properties:
       hdi-container-name: '${service-name}'
     type: com.sap.xs.hdi-container
