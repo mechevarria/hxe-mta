@@ -46,7 +46,7 @@ Make sure the **Run as Web Application** is on **Cloud Foundry**, not Neo by che
 
 ![web.png](screenshots/web.png)
 
-The assets in the `webapp` directory are the distribution output from the build process in [github/mechevarria/hxe_angular](https://github.com/mechevarria/hxe_angular)
+The assets in the `webapp` directory are the distribution output from the build process in [github/mechevarria/cp_angular](https://github.com/mechevarria/cp_angular)
 
 
 ## Develop locally or Run in Docker
