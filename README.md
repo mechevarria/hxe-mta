@@ -1,4 +1,4 @@
-# cloud-mta
+# SAP Cloud Platform Multi-Target-Application (MTA)
 A [SAP HANA](https://developers.sap.com/topics/sap-webide.html) multi target application that loads data provided by the [Armed Conflict Location & Event Data](https://www.acleddata.com) project and provides a REST API to power data viewing, search, charts and spatial queries along with an [Angular](https://angular.io/) web application 
 
 This application was developed using [SAP HANA Express](https://developers.sap.com/topics/sap-hana.html)
